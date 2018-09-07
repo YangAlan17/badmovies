@@ -24,7 +24,8 @@ module.exports = {
   },
   favorites: {
     post: (movie, callback) => {
-      var queryString = 'INSERT INTO movies(title, release_date, rating, poster) VALUE(?, ?, ?, ?)';
+      var queryString =
+        'INSERT INTO movies(title, release_date, vote_average, poster_path) VALUE(?, ?, ?, ?)';
       var params = [movie.title, movie.release_date, movie.vote_average, movie.poster_path];
       console.log(params);
       sqlDb.query(queryString, params, (err, results) => {
@@ -35,6 +36,24 @@ module.exports = {
       sqlDb.query('SELECT * FROM movies', (err, results) => {
         callback(err, results);
       });
+    },
+    // get: () => {
+    //   return new Promise((resolve, reject) => {
+    //     sqlDb.query('SELECT * FROM movies', (err, results) => {
+    //       console.log('inside query');
+    //       if (err) {
+    //         reject(err);
+    //       } else {
+    //         resolve(results);
+    //       }
+    //     });
+    //   });
+    // },
+    delete: (movie, callback) => {
+      var queryString = `DELETE FROM movies WHERE title = ?`;
+      sqlDb.query(queryString, [movie], (err, result) => {
+        callback(err, result);
+      });
     }
   }
 };
@@ -43,13 +62,13 @@ module.exports = {
 //   sqlDb.query('SELECT * FROM genres', (err, results) => {
 //     callback(err, results);
 //   });
-// }
+// };
 
 // get: () => {
 //   return new Promise((resolve, reject) => {
 //     sqlDb.query('some query', (err, results) => {
 //       if (err) reject(err);
 //       else resolve(results);
-//     })
-//   })
-// }
+//     });
+//   });
+// };

@@ -21,7 +21,11 @@ class Movies extends React.Component {
             className="movie_item"
             key={movie.id}
             onClick={() => {
-              this.props.saveMovie(movie);
+              if (this.props.showFaves) {
+                this.props.deleteMovie(movie);
+              } else {
+                this.props.saveMovie(movie);
+              }
             }}
           >
             <img

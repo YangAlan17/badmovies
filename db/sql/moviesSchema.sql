@@ -18,7 +18,7 @@ CREATE TABLE movies (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL UNIQUE,
     release_date VARCHAR(255) NOT NULL,
-    rating INT NOT NULL,
-    poster VARCHAR(255) NOT NULL,
+    vote_average INT NOT NULL,
+    poster_path VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );

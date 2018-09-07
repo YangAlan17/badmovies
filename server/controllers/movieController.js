@@ -53,7 +53,13 @@ module.exports = {
       if (err) {
         console.error(err);
       } else {
-        res.sendStatus(201);
+        model.favorites.get((err, result) => {
+          if (err) {
+            console.error(err);
+          } else {
+            res.send(result);
+          }
+        });
       }
     });
   },
@@ -61,6 +67,30 @@ module.exports = {
     model.favorites.get((err, results) => {
       res.send(results);
     });
+    // model.favorites
+    //   .get()
+    //   .then((results) => {
+    //     console.log(results);
+    //     res.send(results);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   },
-  deleteMovie: (req, res) => {}
+  deleteMovie: (req, res) => {
+    console.log(req.params.title);
+    model.favorites.delete(req.params.title, (err, result) => {
+      if (err) {
+        console.error(err);
+      } else {
+        model.favorites.get((err, result) => {
+          if (err) {
+            console.error(err);
+          } else {
+            res.send(result);
+          }
+        });
+      }
+    });
+  }
 };

@@ -6,6 +6,6 @@ router.get('/search', movieController.getSearch);
 router.get('/genres', movieController.getGenres);
 router.get('/favorites', movieController.getFavorites);
 router.post('/save', movieController.saveMovie);
-router.delete('/delete', movieController.deleteMovie);
+router.delete('/delete/:title', movieController.deleteMovie);
 
 module.exports = router;

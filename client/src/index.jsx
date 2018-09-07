@@ -24,6 +24,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getMovies('28');
+    axios.get('/movies/favorites').then((results) => {
+      this.setState({
+        favorites: results.data
+      });
+    });
   }
   getMovies(genre) {
     // make an axios request to your server on the GET SEARCH endpoint
@@ -40,16 +45,30 @@ class App extends React.Component {
     // same as above but do something diff
     axios
       .post('/movies/save', { movie: movie })
-      .then((result) => {
-        console.log(result);
+      .then((results) => {
+        console.log(results.data);
+        this.setState({
+          favorites: results.data
+        });
       })
       .catch((err) => {
         console.error(err);
       });
   }
 
-  deleteMovie() {
+  deleteMovie(movie) {
     // same as above but do something diff
+    axios
+      .delete(`/movies/delete/${movie.title}`)
+      .then((results) => {
+        console.log(results.data);
+        this.setState({
+          favorites: results.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   swapFavorites() {
@@ -76,6 +95,7 @@ class App extends React.Component {
             movies={this.state.showFaves ? this.state.favorites : this.state.movies}
             showFaves={this.state.showFaves}
             saveMovie={this.saveMovie}
+            deleteMovie={this.deleteMovie}
           />
         </div>
       </div>
