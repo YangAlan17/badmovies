@@ -17,7 +17,13 @@ class Movies extends React.Component {
       <ul className="movies">
         {/* Make this list dynamic! */}
         {this.props.movies.map((movie) => (
-          <li className="movie_item" key={movie.id}>
+          <li
+            className="movie_item"
+            key={movie.id}
+            onClick={() => {
+              this.props.saveMovie(movie);
+            }}
+          >
             <img
               src={
                 movie.poster_path

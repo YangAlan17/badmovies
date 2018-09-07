@@ -15,6 +15,10 @@ CREATE TABLE genres (
 );
 
 CREATE TABLE movies (
-    movie_id INT NOT NULL,
-    movie_name VARCHAR(255) NOT NULL
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL UNIQUE,
+    release_date VARCHAR(255) NOT NULL,
+    rating INT NOT NULL,
+    poster VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
 );

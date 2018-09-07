@@ -36,8 +36,16 @@ class App extends React.Component {
     });
   }
 
-  saveMovie() {
+  saveMovie(movie) {
     // same as above but do something diff
+    axios
+      .post('/movies/save', { movie: movie })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   deleteMovie() {
@@ -67,6 +75,7 @@ class App extends React.Component {
           <Movies
             movies={this.state.showFaves ? this.state.favorites : this.state.movies}
             showFaves={this.state.showFaves}
+            saveMovie={this.saveMovie}
           />
         </div>
       </div>

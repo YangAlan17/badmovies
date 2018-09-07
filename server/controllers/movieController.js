@@ -2,6 +2,7 @@ const movieModel = require('../models/movieModel.js');
 const apiHelpers = require('../helpers/apiHelpers.js');
 const axios = require('axios');
 const API_KEY = require('../../config.js').API_KEY;
+const model = require('../models/movieModel.js');
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
@@ -47,6 +48,19 @@ module.exports = {
     // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
     // send back
   },
-  saveMovie: (req, res) => {},
+  saveMovie: (req, res) => {
+    model.favorites.post(req.body.movie, (err, results) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.sendStatus(201);
+      }
+    });
+  },
+  getFavorites: (req, res) => {
+    model.favorites.get((err, results) => {
+      res.send(results);
+    });
+  },
   deleteMovie: (req, res) => {}
 };

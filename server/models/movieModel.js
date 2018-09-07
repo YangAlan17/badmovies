@@ -21,5 +21,35 @@ module.exports = {
         callback(err, results);
       });
     }
+  },
+  favorites: {
+    post: (movie, callback) => {
+      var queryString = 'INSERT INTO movies(title, release_date, rating, poster) VALUE(?, ?, ?, ?)';
+      var params = [movie.title, movie.release_date, movie.vote_average, movie.poster_path];
+      console.log(params);
+      sqlDb.query(queryString, params, (err, results) => {
+        callback(err, results);
+      });
+    },
+    get: (callback) => {
+      sqlDb.query('SELECT * FROM movies', (err, results) => {
+        callback(err, results);
+      });
+    }
   }
 };
+
+// get: (callback) => {
+//   sqlDb.query('SELECT * FROM genres', (err, results) => {
+//     callback(err, results);
+//   });
+// }
+
+// get: () => {
+//   return new Promise((resolve, reject) => {
+//     sqlDb.query('some query', (err, results) => {
+//       if (err) reject(err);
+//       else resolve(results);
+//     })
+//   })
+// }
