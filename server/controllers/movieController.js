@@ -4,28 +4,27 @@ const apiHelpers = require('../helpers/apiHelpers.js');
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
-    // get the search genre     
-
-    // https://www.themoviedb.org/account/signup
-    // get your API KEY
-
-    // use this endpoint to search for movies by genres, you will need an API key
-
-    // https://api.themoviedb.org/3/discover/movie
-
-    // and sort them by horrible votes using the search parameters in the API
+    apiHelpers
+      .getSearch(req.query.genre)
+      .then(({ data }) => {
+        res.send(data.results);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
   getGenres: (req, res) => {
-    // make an axios request to get the list of official genres
-    
-    // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
-    
-    // send back
+    apiHelpers
+      .getGenres()
+      .then((response) => {
+        res.send(response.data.genres);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   },
   saveMovie: (req, res) => {
-
+    movieModel.saveMovie();
   },
-  deleteMovie: (req, res) => {
-
-  }
-}
+  deleteMovie: (req, res) => {}
+};
